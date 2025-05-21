@@ -3,7 +3,7 @@
 #include <thread>
 #include <vector>
 
-bool detour(void* source, void* destination)
+void detour(void* source, void* destination)
 {
 	uint8_t instructions[14] = {
 		0xFF, 0x25, 0x0, 0x0, 0x0, 0x0, /* JMP opcode and [RIP + 0] */
@@ -20,8 +20,6 @@ bool detour(void* source, void* destination)
 	memcpy(source, instructions, sizeof(instructions));
 
 	VirtualProtect(source, sizeof(instructions), old, &old);
-
-	return true;
 }
 
 void destination()
